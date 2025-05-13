@@ -1,0 +1,2 @@
+C:/Users/musta/StudioProjects/Instagram-main-main/android/app/.cxx/Debug/1a27492z/x86_64/CMakeFiles/edit_cache.dir
+C:/Users/musta/StudioProjects/Instagram-main-main/android/app/.cxx/Debug/1a27492z/x86_64/CMakeFiles/rebuild_cache.dir
