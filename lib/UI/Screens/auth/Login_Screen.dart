@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:instagram/Core/Utils/colors.dart';
-import 'package:instagram/UI/Screens/HomeScreen.dart';
-import 'package:instagram/UI/Screens/editProfile.dart';
+import 'package:instagram/UI/Screens/homeScreens/HomeScreen.dart';
+import 'package:instagram/UI/Screens/auth/RegisterScreen.dart';
+import 'package:instagram/UI/Screens/homeScreens/editProfile.dart';
 import 'package:instagram/logic/login_cubit/cubit.dart';
 import 'package:instagram/logic/login_cubit/state.dart';
 
@@ -18,7 +19,7 @@ class LoginScreen extends StatelessWidget {
     return BlocProvider(
       create: (context) => LoginCubit(),
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         body: BlocConsumer<LoginCubit, LoginState>(
           listener: (context, state) {
             if (state is LoginSuccessState) {
@@ -44,17 +45,27 @@ class LoginScreen extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Image.asset("assets/logo/instagram text logo.png"),
+                    Image.asset(
+                      Theme.of(context).brightness == Brightness.dark
+                          ? "assets/logo/instagram text logoBlack.png"
+                          : "assets/logo/instagram text logo.png",
+                    ),
                     const SizedBox(height: 20),
                     TextFormField(
                       controller: emailController,
+                      style: TextStyle(
+                          color: Theme.of(context).textTheme.bodyLarge?.color),
                       decoration: InputDecoration(
                         hintText: 'Email',
-                        filled: true,
-                        fillColor: ColorsManger.lightGrey,
-                        border: OutlineInputBorder(
+                        hintStyle:
+                            TextStyle(color: Theme.of(context).hintColor),
+                        enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide.none,
+                          borderSide: const BorderSide(color: Colors.grey),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: const BorderSide(color: Colors.grey),
                         ),
                       ),
                       validator: (value) =>
@@ -64,13 +75,19 @@ class LoginScreen extends StatelessWidget {
                     TextFormField(
                       controller: passwordController,
                       obscureText: true,
+                      style: TextStyle(
+                          color: Theme.of(context).textTheme.bodyLarge?.color),
                       decoration: InputDecoration(
                         hintText: 'Password',
-                        filled: true,
-                        fillColor: ColorsManger.lightGrey,
-                        border: OutlineInputBorder(
+                        hintStyle:
+                            TextStyle(color: Theme.of(context).hintColor),
+                        enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide.none,
+                          borderSide: const BorderSide(color: Colors.grey),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: const BorderSide(color: Colors.grey),
                         ),
                       ),
                       validator: (value) =>
@@ -105,14 +122,21 @@ class LoginScreen extends StatelessWidget {
                         const Text("Do not have an account?"),
                         TextButton(
                           onPressed: () {
-                            // Navigator.push(
-                            //     context,
-                            //     MaterialPageRoute(
-                            //         // builder: (context) => const RegisterScreen(),
-                            //         ));
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const RegisterScreen(),
+                                ));
                           },
-                          child: const Text("Register.",
-                              style: TextStyle(color: Colors.black)),
+                          child: Text(
+                            "Register.",
+                            style: TextStyle(
+                              color: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? Colors.white
+                                  : Colors.black,
+                            ),
+                          ),
                         ),
                       ],
                     ),

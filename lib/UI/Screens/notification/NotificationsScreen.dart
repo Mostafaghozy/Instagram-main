@@ -35,13 +35,15 @@ class _NotificationsScreenState extends State<NotificationsScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
+        backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
         title: const Text(""),
         bottom: TabBar(
           controller: _tabController,
-          indicatorColor: Colors.black,
-          labelColor: Colors.black,
-          unselectedLabelColor: Colors.grey,
+          indicatorColor: Theme.of(context).colorScheme.primary,
+          labelColor: Theme.of(context).textTheme.bodyLarge?.color,
+          unselectedLabelColor: Theme.of(context).hintColor,
           tabs: const [
             Tab(text: "Following"),
             Tab(text: "You"),

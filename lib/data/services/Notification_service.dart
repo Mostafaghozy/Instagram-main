@@ -1,6 +1,11 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+
+Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  // If using FlutterLocalNotificationsPlugin, you may want to show a notification here
+  print('Handling a background message: \\${message.messageId}');
+  // Optionally, you can call NotificationService()._showLocalNotification(message);
+}
 
 class NotificationService {
   final FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
@@ -27,6 +32,9 @@ class NotificationService {
 
     // Handle background/terminated messages
     FirebaseMessaging.onMessageOpenedApp.listen(_handleBackgroundMessage);
+
+    // Register background handler
+    FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
 
     // Get FCM token
     String? token = await firebaseMessaging.getToken();

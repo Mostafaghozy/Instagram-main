@@ -1,10 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:instagram/UI/Screens/HomeScreen.dart';
-import 'package:instagram/UI/Screens/Login_Screen.dart';
-import 'package:instagram/UI/Screens/editProfile.dart';
-import 'package:instagram/UI/Screens/profileScreen.dart';
+import 'package:instagram/UI/Screens/auth/RegisterScreen.dart';
+import 'package:instagram/UI/Screens/homeScreens/HomeScreen.dart';
+import 'package:instagram/UI/Screens/notification/Notifications_test.dart';
 import 'package:instagram/data/services/Notification_service.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -28,13 +27,32 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: unused_local_variable
     final user = FirebaseAuth.instance.currentUser;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         useMaterial3: true,
+        brightness: Brightness.light,
+        primarySwatch: Colors.blue,
+        scaffoldBackgroundColor: Colors.white,
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Colors.white,
+          foregroundColor: Colors.black,
+        ),
       ),
-      home: const EditProfile(),
+      darkTheme: ThemeData(
+        useMaterial3: true,
+        brightness: Brightness.dark,
+        primarySwatch: Colors.blue,
+        scaffoldBackgroundColor: Colors.black,
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Colors.black,
+          foregroundColor: Colors.white,
+        ),
+      ),
+      themeMode: ThemeMode.system,
+      home: const HomeScreen(),
       // home: user != null
       //     ? const HomeScreen()
       //     : LoginScreen(), // يمكن تغييرها إلى HomeScreen حسب الحاجة

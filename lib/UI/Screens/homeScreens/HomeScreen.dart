@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:instagram/UI/Screens/NotificationsScreen.dart';
-import 'package:instagram/UI/Screens/newFollowingScreen.dart';
+import 'package:instagram/UI/Screens/notification/NotificationsScreen.dart';
+import 'package:instagram/UI/Screens/homeScreens/newFollowingScreen.dart';
 import 'package:instagram/UI/Widgets/buttonNavigationBar_widget.dart';
 import 'package:instagram/data/models/story_model.dart';
 import 'package:instagram/data/services/story_service.dart';
@@ -163,7 +163,9 @@ class _HomeState extends State<HomeScreen> {
         title: Row(
           children: [
             Image.asset(
-              'assets/images/IG logo.png',
+              Theme.of(context).brightness == Brightness.dark
+                  ? 'assets/logo/instagram text logoBlack.png'
+                  : 'assets/images/IG logo.png',
               width: 104,
               height: 30,
             ),
@@ -424,32 +426,67 @@ class _HomeState extends State<HomeScreen> {
                             : 'assets/icons/like.png';
                       });
                     },
-                    child: Image.asset(currentImage, width: 24, height: 24),
+                    child: Image.asset(
+                      Theme.of(context).brightness == Brightness.dark
+                          ? 'assets/icons/likeBlack.png'
+                          : currentImage,
+                      width: 24,
+                      height: 24,
+                    ),
                   ),
                 ),
                 const SizedBox(width: 10),
-                Image.asset('assets/icons/message.png', width: 24, height: 24),
+                Image.asset(
+                  Theme.of(context).brightness == Brightness.dark
+                      ? 'assets/icons/MessageBlack.png'
+                      : 'assets/icons/message.png',
+                  width: 24,
+                  height: 24,
+                ),
                 const SizedBox(width: 10),
-                Image.asset('assets/icons/share.png', width: 24, height: 24),
+                Image.asset(
+                  Theme.of(context).brightness == Brightness.dark
+                      ? 'assets/icons/shareBlack.png'
+                      : 'assets/icons/share.png',
+                  width: 24,
+                  height: 24,
+                ),
                 const Spacer(),
                 Padding(
                   padding: const EdgeInsets.only(right: 10),
-                  child: Image.asset('assets/icons/save.png',
-                      width: 24, height: 24),
+                  child: Image.asset(
+                    Theme.of(context).brightness == Brightness.dark
+                        ? 'assets/icons/saveBlack.png'
+                        : 'assets/icons/save.png',
+                    width: 24,
+                    height: 24,
+                  ),
                 ),
               ],
             ),
             const SizedBox(height: 10),
-            const Padding(
-              padding: EdgeInsets.only(left: 10),
-              child: Text('100 likes'),
+            Padding(
+              padding: const EdgeInsets.only(left: 10),
+              child: Text(
+                '100 likes',
+                style: TextStyle(
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? Colors.white
+                      : Colors.black,
+                ),
+              ),
             ),
             const SizedBox(height: 10),
             Padding(
               padding: const EdgeInsets.only(left: 10),
               child: RichText(
                 text: TextSpan(
-                  style: const TextStyle(color: Colors.black, fontSize: 14),
+                  style: TextStyle(
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? Colors.white
+                        : Colors.black,
+                    fontSize: 14,
+                  ),
                   children: [
                     TextSpan(
                       text: 'Username ',

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:instagram/UI/Screens/profileScreen.dart';
-import 'package:instagram/UI/Screens/HomeScreen.dart';
-import 'package:instagram/UI/Screens/ReelsScreen.dart';
+import 'package:instagram/UI/Screens/homeScreens/profileScreen.dart';
+import 'package:instagram/UI/Screens/homeScreens/HomeScreen.dart';
+import 'package:instagram/UI/Screens/homeScreens/ReelsScreen.dart';
 
 class NavBar extends StatelessWidget {
   final Function(int) onItemSelected;
@@ -32,26 +32,49 @@ class NavBar extends StatelessWidget {
   }
 
   Widget navItem(IconData icon, int index, BuildContext context) {
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+    IconData displayIcon = icon;
+    // Change icons for dark mode
+    if (isDarkMode) {
+      switch (index) {
+        case 0:
+          displayIcon = Icons.home_filled;
+          break;
+        case 1:
+          displayIcon = Icons.search;
+          break;
+        case 2:
+          displayIcon = Icons.video_library;
+          break;
+        case 3:
+          displayIcon = Icons.shopping_bag_outlined;
+          break;
+      }
+    }
     return GestureDetector(
       onTap: () => _navigateToScreen(index, context),
       child: Icon(
-        icon,
+        displayIcon,
         size: 30,
-        color: selectedIndex == index ? Colors.black : Colors.black54,
+        color: isDarkMode
+            ? Colors.white
+            : (selectedIndex == index ? Colors.black : Colors.black54),
       ),
     );
   }
 
   Widget profileIcon(int index, BuildContext context) {
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return GestureDetector(
       onTap: () => _navigateToScreen(index, context),
       child: CircleAvatar(
         radius: 14,
-        backgroundColor:
-            selectedIndex == index ? Colors.black : Colors.transparent,
+        backgroundColor: selectedIndex == index
+            ? (isDarkMode ? Colors.white : Colors.black)
+            : Colors.transparent,
         child: const CircleAvatar(
           radius: 12,
-          backgroundImage: AssetImage("assets/images/dog2.png"),
+          backgroundImage: const AssetImage("assets/images/dog2.png"),
         ),
       ),
     );

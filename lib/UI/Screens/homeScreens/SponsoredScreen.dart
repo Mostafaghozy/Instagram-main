@@ -25,7 +25,9 @@ class _SponsoredState extends State<SponsoredScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
+        backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
         title: Row(
           children: [
             Image.asset(
@@ -43,14 +45,14 @@ class _SponsoredState extends State<SponsoredScreen> {
               child: Icon(
                 Icons.keyboard_arrow_down,
                 size: 30,
-                color: Colors.black,
+                color: Theme.of(context).iconTheme.color,
               ),
             ),
           ],
         ),
         actions: [
           Padding(
-            padding: EdgeInsets.only(right: 10),
+            padding: const EdgeInsets.only(right: 10),
             child: InkWell(
               onTap: () {
                 //action
@@ -62,9 +64,9 @@ class _SponsoredState extends State<SponsoredScreen> {
               ),
             ),
           ),
-          SizedBox(width: 10),
+          const SizedBox(width: 10),
           Padding(
-            padding: EdgeInsets.only(right: 10),
+            padding: const EdgeInsets.only(right: 10),
             child: InkWell(
               onTap: () {
                 //action
@@ -76,9 +78,9 @@ class _SponsoredState extends State<SponsoredScreen> {
               ),
             ),
           ),
-          SizedBox(width: 10),
+          const SizedBox(width: 10),
           Padding(
-            padding: EdgeInsets.only(right: 10),
+            padding: const EdgeInsets.only(right: 10),
             child: InkWell(
               onTap: () {
                 //action
@@ -153,7 +155,7 @@ class _SponsoredState extends State<SponsoredScreen> {
                                 index == 0
                                     ? "Add"
                                     : "Text${index}", // النص يعتمد على الفهرس
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -176,7 +178,7 @@ class _SponsoredState extends State<SponsoredScreen> {
               child: Row(
                 children: [
                   CircleAvatar(
-                    backgroundImage: AssetImage('assets/images/dog2.png'),
+                    backgroundImage: const AssetImage('assets/images/dog2.png'),
                     radius: 25,
                     child: Container(
                       decoration: BoxDecoration(
@@ -189,20 +191,21 @@ class _SponsoredState extends State<SponsoredScreen> {
                     ),
                   ),
                   const SizedBox(width: 5),
-                  Column(
+                  const Column(
                     children: [
-                      Text(
+                      const Text(
                         "Ruffles",
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 12,
                         ),
                       ),
-                      Text("Sponsored", style: TextStyle(fontSize: 11)),
+                      const Text("Sponsored",
+                          style: const TextStyle(fontSize: 11)),
                     ],
                   ),
                   const Spacer(),
-                  Icon(Icons.more_horiz),
+                  const Icon(Icons.more_horiz),
                 ],
               ),
             ),
@@ -262,11 +265,11 @@ class _SponsoredState extends State<SponsoredScreen> {
                 ],
               ),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Row(
               children: [
                 Padding(
-                  padding: EdgeInsets.only(left: 10),
+                  padding: const EdgeInsets.only(left: 10),
                   child: InkWell(
                     onTap: () {
                       setState(() {
@@ -286,7 +289,7 @@ class _SponsoredState extends State<SponsoredScreen> {
                     ),
                   ),
                 ),
-                SizedBox(width: 10),
+                const SizedBox(width: 10),
                 InkWell(
                   onTap: () {
                     //action
@@ -297,7 +300,7 @@ class _SponsoredState extends State<SponsoredScreen> {
                     height: 24,
                   ),
                 ),
-                SizedBox(width: 10),
+                const SizedBox(width: 10),
                 InkWell(
                   onTap: () {
                     //action
@@ -308,7 +311,7 @@ class _SponsoredState extends State<SponsoredScreen> {
                     height: 24,
                   ),
                 ),
-                Spacer(),
+                const Spacer(),
                 Padding(
                   padding: const EdgeInsets.only(right: 10),
                   child: InkWell(
@@ -324,12 +327,12 @@ class _SponsoredState extends State<SponsoredScreen> {
                 ),
               ],
             ),
-            SizedBox(height: 10),
-            Padding(
+            const SizedBox(height: 10),
+            const Padding(
               padding: const EdgeInsets.only(left: 10),
-              child: Text('100 likes'),
+              child: const Text('100 likes'),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Padding(
               padding: const EdgeInsets.only(left: 10),
               child: RichText(
@@ -357,10 +360,10 @@ class _SponsoredState extends State<SponsoredScreen> {
                 ),
               ),
             ),
-            Padding(
+            const Padding(
               padding: const EdgeInsets.only(left: 10),
-              child: Text('View all 16 comments',
-                  style: TextStyle(color: Colors.grey, fontSize: 14)),
+              child: const Text('View all 16 comments',
+                  style: const TextStyle(color: Colors.grey, fontSize: 14)),
             ),
           ],
         ),

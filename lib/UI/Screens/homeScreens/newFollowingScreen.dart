@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:instagram/UI/Screens/HomeScreen.dart';
+import 'package:instagram/UI/Screens/homeScreens/HomeScreen.dart';
 import 'package:instagram/UI/Widgets/Gridview_widget.dart';
 import 'package:instagram/UI/Widgets/buttonNavigationBar_widget.dart';
 import 'package:instagram/UI/Widgets/storyListWidget.dart';
