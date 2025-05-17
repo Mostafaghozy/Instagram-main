@@ -70,82 +70,105 @@ class NotificationsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final textColor = isDark ? Colors.white : Colors.black;
+    final subTextColor = isDark ? Colors.white70 : Colors.grey;
+    final tileColor = isDark ? const Color(0xFF232323) : Colors.white;
+    final dividerColor = isDark ? Colors.grey[700] : Colors.grey[300];
     return ListView(
       shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(), // لمنع التمرير الداخلي
+      physics: const NeverScrollableScrollPhysics(),
       children: [
-        _buildSectionTitle("Follow Requests"),
-        _buildDivider(),
-        _buildSectionTitle("New"),
-        _buildNotificationItem("karenne", "liked your photo.", "1h",
+        _buildSectionTitle("Follow Requests", textColor),
+        _buildDivider(dividerColor),
+        _buildSectionTitle("New", textColor),
+        _buildNotificationItem("karenne", "liked your photo.", "1h", textColor,
+            subTextColor, tileColor,
             showImage: true),
-        _buildDivider(),
-        _buildSectionTitle("Today"),
-        _buildNotificationItem("kiero_d", "liked your photo.", "3h",
+        _buildDivider(dividerColor),
+        _buildSectionTitle("Today", textColor),
+        _buildNotificationItem("kiero_d", "liked your photo.", "3h", textColor,
+            subTextColor, tileColor,
             showImage: true),
-        _buildDivider(),
-        _buildSectionTitle("This Week"),
-        _buildNotificationItem(
-            "craig_love", "mentioned you in a comment.", "2d",
+        _buildDivider(dividerColor),
+        _buildSectionTitle("This Week", textColor),
+        _buildNotificationItem("craig_love", "mentioned you in a comment.",
+            "2d", textColor, subTextColor, tileColor,
             showReply: true),
         _buildNotificationItem("martini_rond", "started following you.", "3d",
+            textColor, subTextColor, tileColor,
             showButton: true),
         _buildNotificationItem("maxjacobson", "started following you.", "3d",
+            textColor, subTextColor, tileColor,
             showButton: true),
         _buildNotificationItem("mis_potter", "started following you.", "3d",
+            textColor, subTextColor, tileColor,
             showFollowButton: true),
-        _buildDivider(),
-        _buildSectionTitle("This Month"),
-        _buildNotificationItem(
-            "craig_love", "mentioned you in a comment.", "2d",
+        _buildDivider(dividerColor),
+        _buildSectionTitle("This Month", textColor),
+        _buildNotificationItem("craig_love", "mentioned you in a comment.",
+            "2d", textColor, subTextColor, tileColor,
             showReply: true),
         _buildNotificationItem("martini_rond", "started following you.", "3d",
+            textColor, subTextColor, tileColor,
             showButton: true),
         _buildNotificationItem("maxjacobson", "started following you.", "3d",
+            textColor, subTextColor, tileColor,
             showButton: true),
         _buildNotificationItem("mis_potter", "started following you.", "3d",
+            textColor, subTextColor, tileColor,
             showFollowButton: true),
       ],
     );
   }
 
-  Widget _buildSectionTitle(String title) {
+  Widget _buildSectionTitle(String title, Color textColor) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
       child: Text(
         title,
-        style: const TextStyle(
+        style: TextStyle(
           fontSize: 16,
           fontWeight: FontWeight.bold,
+          color: textColor,
         ),
       ),
     );
   }
 
-  Widget _buildNotificationItem(String username, String action, String time,
-      {bool showImage = false,
-      bool showButton = false,
-      bool showFollowButton = false,
-      bool showReply = false}) {
+  Widget _buildNotificationItem(
+    String username,
+    String action,
+    String time,
+    Color textColor,
+    Color subTextColor,
+    Color tileColor, {
+    bool showImage = false,
+    bool showButton = false,
+    bool showFollowButton = false,
+    bool showReply = false,
+  }) {
     return Column(
       children: [
         ListTile(
+          tileColor: tileColor,
           leading: const CircleAvatar(
             backgroundImage: AssetImage("assets/images/dog2.png"),
           ),
           title: RichText(
             text: TextSpan(
-              style: const TextStyle(color: Colors.black, fontSize: 14),
+              style: TextStyle(color: textColor, fontSize: 14),
               children: [
                 TextSpan(
                     text: "$username ",
-                    style: const TextStyle(fontWeight: FontWeight.bold)),
-                TextSpan(text: action),
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold, color: textColor)),
+                TextSpan(text: action, style: TextStyle(color: textColor)),
               ],
             ),
           ),
-          subtitle: Text(time,
-              style: const TextStyle(color: Colors.grey, fontSize: 12)),
+          subtitle:
+              Text(time, style: TextStyle(color: subTextColor, fontSize: 12)),
           trailing: showImage
               ? Image.asset("assets/images/dog2.png",
                   width: 40, height: 40, fit: BoxFit.cover)
@@ -154,7 +177,7 @@ class NotificationsList extends StatelessWidget {
                   ? OutlinedButton(
                       onPressed: () {},
                       style: OutlinedButton.styleFrom(
-                        backgroundColor: Colors.grey[300],
+                        backgroundColor: tileColor,
                         side: const BorderSide(color: Colors.transparent),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(5)),
@@ -162,8 +185,8 @@ class NotificationsList extends StatelessWidget {
                             vertical: 5, horizontal: 10),
                         minimumSize: const Size(90, 28),
                       ),
-                      child: const Text("Message",
-                          style: TextStyle(color: Colors.black, fontSize: 13)),
+                      child: Text("Message",
+                          style: TextStyle(color: textColor, fontSize: 13)),
                     )
                   //Button to follow
                   : showFollowButton
@@ -186,7 +209,7 @@ class NotificationsList extends StatelessWidget {
                       : showReply
                           ? TextButton(
                               onPressed: () {},
-                              child: const Text("Reply",
+                              child: Text("Reply",
                                   style: TextStyle(color: Colors.blue)),
                             )
                           : null,
@@ -195,7 +218,7 @@ class NotificationsList extends StatelessWidget {
     );
   }
 
-  Widget _buildDivider() {
-    return Divider(color: Colors.grey[300], thickness: 1);
+  Widget _buildDivider(Color? dividerColor) {
+    return Divider(color: dividerColor, thickness: 1);
   }
 }

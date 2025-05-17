@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+// import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:instagram/UI/Screens/notification/NotificationsScreen.dart';
@@ -10,7 +10,9 @@ import 'package:instagram/UI/Screens/homeScreens/newFollowingScreen.dart';
 import 'package:instagram/UI/Widgets/buttonNavigationBar_widget.dart';
 import 'package:instagram/data/models/story_model.dart';
 import 'package:instagram/data/services/story_service.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:firebase_auth/firebase_auth.dart';
+import 'package:instagram/UI/Screens/homeScreens/chat_screen.dart';
+import 'package:instagram/UI/Screens/favorite/FavoriteScreen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -186,7 +188,21 @@ class _HomeState extends State<HomeScreen> {
           ),
           IconButton(
             icon: const FaIcon(FontAwesomeIcons.facebookMessenger, size: 24),
-            onPressed: () {},
+            onPressed: () {
+              // TEMP: Navigate to ChatScreen with mock data for testing
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => const ChatScreen(
+                    chatId: 'test_chat',
+                    currentUserId: 'user_1',
+                    peerId: 'user_2',
+                    peerName: 'Test User',
+                    peerAvatar: 'https://randomuser.me/api/portraits/men/1.jpg',
+                  ),
+                ),
+              );
+            },
           ),
           IconButton(
             icon: const FaIcon(FontAwesomeIcons.add, size: 24),
@@ -378,7 +394,7 @@ class _HomeState extends State<HomeScreen> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (_) => const Newfollowingscreen()));
+                              builder: (_) => const Newfollowing()));
                     },
                     child: const Column(
                       children: [
@@ -454,12 +470,29 @@ class _HomeState extends State<HomeScreen> {
                 const Spacer(),
                 Padding(
                   padding: const EdgeInsets.only(right: 10),
-                  child: Image.asset(
-                    Theme.of(context).brightness == Brightness.dark
-                        ? 'assets/icons/saveBlack.png'
-                        : 'assets/icons/save.png',
-                    width: 24,
-                    height: 24,
+                  child: InkWell(
+                    onTap: () {
+                      if (uploadedPostImage != null) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) =>
+                                FavoriteScreen(imageFile: uploadedPostImage!),
+                          ),
+                        );
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('No image to save!')),
+                        );
+                      }
+                    },
+                    child: Image.asset(
+                      Theme.of(context).brightness == Brightness.dark
+                          ? 'assets/icons/saveBlack.png'
+                          : 'assets/icons/save.png',
+                      width: 24,
+                      height: 24,
+                    ),
                   ),
                 ),
               ],
@@ -495,7 +528,7 @@ class _HomeState extends State<HomeScreen> {
                         ..onTap = () => Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (_) => const Newfollowingscreen())),
+                                builder: (_) => const Newfollowing())),
                     ),
                     const TextSpan(
                       text:

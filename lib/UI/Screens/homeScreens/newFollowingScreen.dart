@@ -4,15 +4,15 @@ import 'package:instagram/UI/Widgets/Gridview_widget.dart';
 import 'package:instagram/UI/Widgets/buttonNavigationBar_widget.dart';
 import 'package:instagram/UI/Widgets/storyListWidget.dart';
 
-class Newfollowingscreen extends StatefulWidget {
-  const Newfollowingscreen({super.key});
+class Newfollowing extends StatefulWidget {
+  const Newfollowing({super.key});
 
   @override
   // ignore: library_private_types_in_public_api
-  _NewfollowingscreenState createState() => _NewfollowingscreenState();
+  _NewfollowingState createState() => _NewfollowingState();
 }
 
-class _NewfollowingscreenState extends State<Newfollowingscreen>
+class _NewfollowingState extends State<Newfollowing>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
   int _selectedIndex = 0;
@@ -34,51 +34,64 @@ class _NewfollowingscreenState extends State<Newfollowingscreen>
     setState(() {
       _selectedIndex = index;
     });
-    // هنا يمكن تنفيذ التنقل بين الشاشات إذا لزم الأمر
   }
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    Color textColor = isDark ? Colors.white : Colors.black;
+    Color subTextColor = isDark ? Colors.white70 : Colors.black;
+    Color cardColor = isDark ? const Color(0xFF232323) : Colors.white;
+    Color buttonBg =
+        isDark ? Colors.white : const Color.fromRGBO(0, 163, 255, 1);
+    Color buttonText =
+        isDark ? const Color.fromRGBO(0, 163, 255, 1) : Colors.white;
+    Color outlineButtonBg =
+        isDark ? const Color(0xFF232323) : const Color(0xFFEFEFEF);
+    Color outlineButtonText = isDark ? Colors.white : Colors.black;
+    Color iconColor = isDark ? Colors.white : Colors.black;
+
     return DefaultTabController(
       length: 3,
       child: Scaffold(
+        backgroundColor: isDark ? const Color(0xFF181818) : Colors.white,
         appBar: AppBar(
+          backgroundColor: isDark ? const Color(0xFF181818) : Colors.white,
           leading: Padding(
             padding: const EdgeInsets.only(left: 10),
             child: IconButton(
-              icon: const Icon(Icons.arrow_back),
+              icon: Icon(Icons.arrow_back, color: iconColor),
               onPressed: () {
                 Navigator.pop(
                   context,
                   MaterialPageRoute(builder: (context) => const HomeScreen()),
-                  // يمسح جميع الصفحات السابقة
                 );
               },
             ),
           ),
           centerTitle: true,
-          title: const Row(
+          title: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
                 'username',
                 style: TextStyle(
-                  color: Colors.black,
+                  color: textColor,
                   fontSize: 16,
                 ),
               ),
-              SizedBox(width: 5),
-              Icon(Icons.verified, color: Colors.blue, size: 18),
+              const SizedBox(width: 5),
+              const Icon(Icons.verified, color: Colors.blue, size: 18),
             ],
           ),
-          actions: const [
+          actions: [
             Padding(
-              padding: EdgeInsets.only(right: 10),
-              child: Icon(Icons.notifications_none),
+              padding: const EdgeInsets.only(right: 10),
+              child: Icon(Icons.notifications_none, color: iconColor),
             ),
             Padding(
-              padding: EdgeInsets.only(right: 10),
-              child: Icon(Icons.more_horiz),
+              padding: const EdgeInsets.only(right: 10),
+              child: Icon(Icons.more_horiz, color: iconColor),
             ),
           ],
         ),
@@ -86,23 +99,35 @@ class _NewfollowingscreenState extends State<Newfollowingscreen>
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Padding(
-                padding: EdgeInsets.all(16.0),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    CircleAvatar(
+                    const CircleAvatar(
                       radius: 40,
-                      backgroundImage: AssetImage("assets/images/dog2.png"),
+                      backgroundImage:
+                          const AssetImage("assets/images/dog2.png"),
                     ),
-                    SizedBox(width: 30),
+                    const SizedBox(width: 30),
                     Expanded(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          Column(children: [Text("1,234"), Text("Posts")]),
-                          Column(children: [Text("10K"), Text("Followers")]),
-                          Column(children: [Text("100"), Text("Following")]),
+                          Column(children: [
+                            Text("1,234", style: TextStyle(color: textColor)),
+                            Text("Posts", style: TextStyle(color: subTextColor))
+                          ]),
+                          Column(children: [
+                            Text("10K", style: TextStyle(color: textColor)),
+                            Text("Followers",
+                                style: TextStyle(color: subTextColor))
+                          ]),
+                          Column(children: [
+                            Text("100", style: TextStyle(color: textColor)),
+                            Text("Following",
+                                style: TextStyle(color: subTextColor))
+                          ]),
                         ],
                       ),
                     ),
@@ -114,26 +139,26 @@ class _NewfollowingscreenState extends State<Newfollowingscreen>
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
+                    Text(
                       'Username',
                       style: TextStyle(
-                        color: Colors.black,
+                        color: textColor,
                         fontSize: 16,
                       ),
                     ),
                     const SizedBox(height: 8),
-                    const Text(
+                    Text(
                       'Category/Genre text',
                       style: TextStyle(
-                        color: Colors.black,
+                        color: subTextColor,
                         fontSize: 16,
                         fontWeight: FontWeight.w300,
                       ),
                     ),
-                    const Text(
+                    Text(
                       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt #hashtag',
                       style: TextStyle(
-                        color: Colors.black,
+                        color: textColor,
                         fontSize: 16,
                       ),
                     ),
@@ -145,18 +170,18 @@ class _NewfollowingscreenState extends State<Newfollowingscreen>
                           // Add login functionality
                         },
                         style: OutlinedButton.styleFrom(
-                            backgroundColor:
-                                const Color.fromRGBO(0, 163, 255, 1),
-                            padding: EdgeInsets.zero,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(3),
-                            ),
-                            side: const BorderSide(color: Colors.transparent)),
-                        child: const Text(
+                          backgroundColor: buttonBg,
+                          padding: EdgeInsets.zero,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(3),
+                          ),
+                          side: const BorderSide(color: Colors.transparent),
+                        ),
+                        child: Text(
                           'Follow',
                           style: TextStyle(
                             fontSize: 15,
-                            color: Colors.white,
+                            color: buttonText,
                           ),
                         ),
                       ),
@@ -172,7 +197,7 @@ class _NewfollowingscreenState extends State<Newfollowingscreen>
                             child: OutlinedButton(
                               onPressed: () {},
                               style: OutlinedButton.styleFrom(
-                                backgroundColor: const Color(0xFFEFEFEF),
+                                backgroundColor: outlineButtonBg,
                                 padding: EdgeInsets.zero,
                                 minimumSize: const Size(105, 30),
                                 shape: RoundedRectangleBorder(
@@ -181,10 +206,10 @@ class _NewfollowingscreenState extends State<Newfollowingscreen>
                                 side:
                                     const BorderSide(color: Colors.transparent),
                               ),
-                              child: const Text(
+                              child: Text(
                                 'Message',
                                 style: TextStyle(
-                                    fontSize: 15, color: Colors.black),
+                                    fontSize: 15, color: outlineButtonText),
                               ),
                             ),
                           ),
@@ -197,8 +222,7 @@ class _NewfollowingscreenState extends State<Newfollowingscreen>
                             child: OutlinedButton(
                               onPressed: () {},
                               style: OutlinedButton.styleFrom(
-                                backgroundColor:
-                                    const Color.fromRGBO(239, 239, 239, 1),
+                                backgroundColor: outlineButtonBg,
                                 padding: EdgeInsets.zero,
                                 minimumSize: const Size(105, 30),
                                 shape: RoundedRectangleBorder(
@@ -207,10 +231,10 @@ class _NewfollowingscreenState extends State<Newfollowingscreen>
                                 side:
                                     const BorderSide(color: Colors.transparent),
                               ),
-                              child: const Text(
+                              child: Text(
                                 'Subscribe',
                                 style: TextStyle(
-                                    fontSize: 15, color: Colors.black),
+                                    fontSize: 15, color: outlineButtonText),
                               ),
                             ),
                           ),
@@ -223,8 +247,7 @@ class _NewfollowingscreenState extends State<Newfollowingscreen>
                             child: OutlinedButton(
                               onPressed: () {},
                               style: OutlinedButton.styleFrom(
-                                backgroundColor:
-                                    const Color.fromRGBO(239, 239, 239, 1),
+                                backgroundColor: outlineButtonBg,
                                 padding: EdgeInsets.zero,
                                 minimumSize: const Size(105, 30),
                                 shape: RoundedRectangleBorder(
@@ -233,10 +256,10 @@ class _NewfollowingscreenState extends State<Newfollowingscreen>
                                 side:
                                     const BorderSide(color: Colors.transparent),
                               ),
-                              child: const Text(
+                              child: Text(
                                 'Contact',
                                 style: TextStyle(
-                                    fontSize: 15, color: Colors.black),
+                                    fontSize: 15, color: outlineButtonText),
                               ),
                             ),
                           ),
@@ -245,7 +268,7 @@ class _NewfollowingscreenState extends State<Newfollowingscreen>
                         OutlinedButton(
                           onPressed: () {},
                           style: OutlinedButton.styleFrom(
-                            backgroundColor: const Color(0xFFF1F1F1),
+                            backgroundColor: outlineButtonBg,
                             minimumSize: const Size(40, 30),
                             padding: EdgeInsets.zero,
                             shape: RoundedRectangleBorder(
@@ -253,10 +276,10 @@ class _NewfollowingscreenState extends State<Newfollowingscreen>
                             ),
                             side: const BorderSide(color: Colors.transparent),
                           ),
-                          child: const Icon(
+                          child: Icon(
                             Icons.person_add_outlined,
                             size: 18,
-                            color: Colors.black,
+                            color: iconColor,
                           ),
                         ),
                       ],
@@ -275,6 +298,9 @@ class _NewfollowingscreenState extends State<Newfollowingscreen>
                     TabBar(
                       controller: _tabController,
                       indicatorColor: Colors.blue,
+                      labelColor: isDark ? Colors.white : Colors.black,
+                      unselectedLabelColor:
+                          isDark ? Colors.white54 : Colors.black54,
                       tabs: const [
                         Tab(
                           icon: Icon(Icons.grid_on),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:instagram/UI/Screens/homeScreens/profileScreen.dart';
 import 'package:instagram/UI/Screens/homeScreens/HomeScreen.dart';
 import 'package:instagram/UI/Screens/homeScreens/ReelsScreen.dart';
+import 'package:instagram/UI/Screens/homeScreens/searchScreen.dart';
 
 class NavBar extends StatelessWidget {
   final Function(int) onItemSelected;
@@ -33,33 +34,44 @@ class NavBar extends StatelessWidget {
 
   Widget navItem(IconData icon, int index, BuildContext context) {
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
-    IconData displayIcon = icon;
+    Widget displayIconWidget;
     // Change icons for dark mode
-    if (isDarkMode) {
-      switch (index) {
-        case 0:
-          displayIcon = Icons.home_filled;
-          break;
-        case 1:
-          displayIcon = Icons.search;
-          break;
-        case 2:
-          displayIcon = Icons.video_library;
-          break;
-        case 3:
-          displayIcon = Icons.shopping_bag_outlined;
-          break;
+    if (index == 2) {
+      // Use custom asset for reels icon
+      displayIconWidget = Image.asset(
+        'assets/icons/reels.png',
+        width: 30,
+        height: 30,
+        color: isDarkMode
+            ? Colors.white
+            : (selectedIndex == index ? Colors.black : Colors.black54),
+      );
+    } else {
+      IconData displayIcon = icon;
+      if (isDarkMode) {
+        switch (index) {
+          case 0:
+            displayIcon = Icons.home_filled;
+            break;
+          case 1:
+            displayIcon = Icons.search;
+            break;
+          case 3:
+            displayIcon = Icons.shopping_bag_outlined;
+            break;
+        }
       }
-    }
-    return GestureDetector(
-      onTap: () => _navigateToScreen(index, context),
-      child: Icon(
+      displayIconWidget = Icon(
         displayIcon,
         size: 30,
         color: isDarkMode
             ? Colors.white
             : (selectedIndex == index ? Colors.black : Colors.black54),
-      ),
+      );
+    }
+    return GestureDetector(
+      onTap: () => _navigateToScreen(index, context),
+      child: displayIconWidget,
     );
   }
 
@@ -88,7 +100,7 @@ class NavBar extends StatelessWidget {
         screen = const HomeScreen();
         break;
       case 1:
-        // screen = const SearchScreen();
+        screen = const SearchScreen();
         break;
       case 2:
         screen = const ReelsScreen();
@@ -97,7 +109,7 @@ class NavBar extends StatelessWidget {
         // screen = const NotificationsScreen();
         break;
       case 4:
-        // screen = const ProfileScreen();
+        screen = const ProfileScreen();
         break;
     }
 
